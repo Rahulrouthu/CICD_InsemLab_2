@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: medical-appointment
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: medical-appointment
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: medical-appointment
+        tier: backend
+    spec:
+      containers:
+      - name: backend
+        image: your-docker-username/medical-appointment-backend:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
